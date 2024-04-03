@@ -2,18 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
-{
+public class Item : MonoBehaviour {
     public string type;
     Rigidbody2D rigid;
 
-    void Awake()
-    {
+    void Awake() {
         rigid = GetComponent<Rigidbody2D>();
     }
 
-    void OnEnable()
-    {
+    void OnEnable() {
         rigid.velocity = Vector2.down * 1.5f;
     }
 }

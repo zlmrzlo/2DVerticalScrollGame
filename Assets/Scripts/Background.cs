@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Background : MonoBehaviour
-{
+public class Background : MonoBehaviour {
     public float speed;
     public int startIndex;
     public int endIndex;
@@ -12,27 +11,22 @@ public class Background : MonoBehaviour
 
     float viewHeight;
 
-    private void Awake()
-    {
+    private void Awake() {
         viewHeight = Camera.main.orthographicSize * 2;
     }
-    void Update()
-    {
+    void Update() {
         Move();
         Scrolling();
     }
 
-    void Move()
-    {
+    void Move() {
         Vector3 curPos = transform.position;
         Vector3 nextPos = Vector3.down * speed * Time.deltaTime;
         transform.position = curPos + nextPos;
     }
 
-    void Scrolling()
-    {
-        if (sprites[endIndex].position.y < viewHeight * (-1))
-        {
+    void Scrolling() {
+        if (sprites[endIndex].position.y < viewHeight * (-1)) {
             //#.Sprite ReUse
             Vector3 backSpritePos = sprites[startIndex].localPosition;
             Vector3 frontSpritePos = sprites[endIndex].localPosition;
