@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectManager : MonoBehaviour {
+public class ObjectManager : MonoBehaviour
+{
     public GameObject enemyBPrefab;
     public GameObject enemyLPrefab;
     public GameObject enemyMPrefab;
@@ -40,7 +41,8 @@ public class ObjectManager : MonoBehaviour {
 
     GameObject[] targetPool;
 
-    void Awake() {
+    void Awake()
+    {
         enemyB = new GameObject[1];
         enemyL = new GameObject[10];
         enemyM = new GameObject[10];
@@ -62,87 +64,105 @@ public class ObjectManager : MonoBehaviour {
         Generate();
     }
 
-    void Generate() {
+    void Generate()
+    {
         //#1.Enemy
-        for (int i = 0; i < enemyB.Length; i++) {
+        for (int i = 0; i < enemyB.Length; i++)
+        {
             enemyB[i] = Instantiate(enemyBPrefab);
             enemyB[i].SetActive(false);
         }
-        for (int i = 0; i < enemyL.Length; i++) {
+        for (int i = 0; i < enemyL.Length; i++)
+        {
             enemyL[i] = Instantiate(enemyLPrefab);
             enemyL[i].SetActive(false);
         }
 
 
-        for (int i = 0; i < enemyM.Length; i++) {
+        for (int i = 0; i < enemyM.Length; i++)
+        {
             enemyM[i] = Instantiate(enemyMPrefab);
             enemyM[i].SetActive(false);
         }
 
-        for (int i = 0; i < enemyS.Length; i++) {
+        for (int i = 0; i < enemyS.Length; i++)
+        {
             enemyS[i] = Instantiate(enemySPrefab);
             enemyS[i].SetActive(false);
         }
 
         //#2.Item
-        for (int i = 0; i < itemCoin.Length; i++) {
+        for (int i = 0; i < itemCoin.Length; i++)
+        {
             itemCoin[i] = Instantiate(itemCoinPrefab);
             itemCoin[i].SetActive(false);
         }
 
 
-        for (int i = 0; i < itemPower.Length; i++) {
+        for (int i = 0; i < itemPower.Length; i++)
+        {
             itemPower[i] = Instantiate(itemPowerPrefab);
             itemPower[i].SetActive(false);
         }
 
-        for (int i = 0; i < itemBoom.Length; i++) {
+        for (int i = 0; i < itemBoom.Length; i++)
+        {
             itemBoom[i] = Instantiate(itemBoomPrefab);
             itemBoom[i].SetActive(false);
         }
 
         //#3.Bullet
-        for (int i = 0; i < bulletPlayerA.Length; i++) {
+        for (int i = 0; i < bulletPlayerA.Length; i++)
+        {
             bulletPlayerA[i] = Instantiate(bulletPlayerAPrefab);
             bulletPlayerA[i].SetActive(false);
         }
 
-        for (int i = 0; i < bulletPlayerB.Length; i++) {
+        for (int i = 0; i < bulletPlayerB.Length; i++)
+        {
             bulletPlayerB[i] = Instantiate(bulletPlayerBPrefab);
             bulletPlayerB[i].SetActive(false);
         }
 
-        for (int i = 0; i < bulletEnemyA.Length; i++) {
+        for (int i = 0; i < bulletEnemyA.Length; i++)
+        {
             bulletEnemyA[i] = Instantiate(bulletEnemyAPrefab);
             bulletEnemyA[i].SetActive(false);
         }
 
-        for (int i = 0; i < bulletEnemyB.Length; i++) {
+        for (int i = 0; i < bulletEnemyB.Length; i++)
+        {
             bulletEnemyB[i] = Instantiate(bulletEnemyBPrefab);
             bulletEnemyB[i].SetActive(false);
         }
 
-        for (int i = 0; i < bulletFollower.Length; i++) {
+        for (int i = 0; i < bulletFollower.Length; i++)
+        {
             bulletFollower[i] = Instantiate(bulletFollowerPrefab);
             bulletFollower[i].SetActive(false);
         }
-        for (int i = 0; i < bulletBossA.Length; i++) {
+        for (int i = 0; i < bulletBossA.Length; i++)
+        {
             bulletBossA[i] = Instantiate(bulletBossAPrefab);
             bulletBossA[i].SetActive(false);
         }
-        for (int i = 0; i < bulletBossB.Length; i++) {
+        for (int i = 0; i < bulletBossB.Length; i++)
+        {
             bulletBossB[i] = Instantiate(bulletBossBPrefab);
             bulletBossB[i].SetActive(false);
         }
-        for (int i = 0; i < explosion.Length; i++) {
+        for (int i = 0; i < explosion.Length; i++)
+        {
             explosion[i] = Instantiate(explosionPrefab);
             explosion[i].SetActive(false);
         }
     }
 
-    public GameObject MakeObj(string type) {
+    public GameObject MakeObj(string type)
+    {
 
-        switch (type) {
+        switch (type)
+        {
             case "EnemyB":
                 targetPool = enemyB;
                 break;
@@ -190,8 +210,10 @@ public class ObjectManager : MonoBehaviour {
                 break;
         }
 
-        for (int i = 0; i < targetPool.Length; i++) {
-            if (!targetPool[i].activeSelf) {
+        for (int i = 0; i < targetPool.Length; i++)
+        {
+            if (!targetPool[i].activeSelf)
+            {
                 targetPool[i].SetActive(true);
                 return targetPool[i];
             }
@@ -200,8 +222,10 @@ public class ObjectManager : MonoBehaviour {
         return null;
     }
 
-    public GameObject[] GetPool(string type) {
-        switch (type) {
+    public GameObject[] GetPool(string type)
+    {
+        switch (type)
+        {
             case "EnemyB":
                 targetPool = enemyB;
                 break;

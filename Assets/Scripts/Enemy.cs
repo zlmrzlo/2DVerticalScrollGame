@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour
+{
     public string enemyName;
     public int enemyScore;
     public float speed;
@@ -28,7 +29,8 @@ public class Enemy : MonoBehaviour {
     public int curPatternCount;
     public int[] maxPatternCount;
 
-    void Awake() {
+    void Awake()
+    {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (enemyName == "B")
@@ -36,7 +38,8 @@ public class Enemy : MonoBehaviour {
 
     }
 
-    void Update() {
+    void Update()
+    {
         if (enemyName == "B")
             return;
 
@@ -44,8 +47,10 @@ public class Enemy : MonoBehaviour {
         Reload();
     }
 
-    void OnEnable() {
-        switch (enemyName) {
+    void OnEnable()
+    {
+        switch (enemyName)
+        {
             case "B":
                 health = 200;      // For Test , Set 200
                 Invoke("Stop", 2);
@@ -62,7 +67,8 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    void Stop() {
+    void Stop()
+    {
         if (!gameObject.activeSelf)
             return;
 
@@ -72,11 +78,13 @@ public class Enemy : MonoBehaviour {
         Invoke("Think", 2);
     }
 
-    void Think() {
+    void Think()
+    {
         patternIndex = patternIndex == 3 ? 0 : patternIndex + 1;
         curPatternCount = 0;
 
-        switch (patternIndex) {
+        switch (patternIndex)
+        {
             case 0:
                 FireFoward();
                 break;
@@ -92,7 +100,8 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    void FireFoward() {
+    void FireFoward()
+    {
         if (health <= 0)
             return;
 
@@ -125,12 +134,14 @@ public class Enemy : MonoBehaviour {
             Invoke("Think", 3);
 
     }
-    void FireShot() {
+    void FireShot()
+    {
         if (health <= 0)
             return;
 
         //#.Fire 5 Random Shotgun Bullet to Player
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++)
+        {
             GameObject bullet = objectManager.MakeObj("BulletEnemyB");
             bullet.transform.position = transform.position;
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
@@ -148,7 +159,8 @@ public class Enemy : MonoBehaviour {
         else
             Invoke("Think", 3);
     }
-    void FireArc() {
+    void FireArc()
+    {
         if (health <= 0)
             return;
 
@@ -170,7 +182,8 @@ public class Enemy : MonoBehaviour {
         else
             Invoke("Think", 3);
     }
-    void FireAround() {
+    void FireAround()
+    {
         if (health <= 0)
             return;
 
@@ -179,7 +192,8 @@ public class Enemy : MonoBehaviour {
         int roundNumB = 40;
         int roundNum = curPatternCount % 2 == 0 ? roundnumA : roundNumB;
 
-        for (int i = 0; i < roundNum; i++) {
+        for (int i = 0; i < roundNum; i++)
+        {
             GameObject bullet = objectManager.MakeObj("BulletBossB");
             bullet.transform.position = transform.position;
             bullet.transform.rotation = Quaternion.identity;
@@ -202,11 +216,13 @@ public class Enemy : MonoBehaviour {
             Invoke("FireAround", 3);
     }
 
-    void Fire() {
+    void Fire()
+    {
         if (curShotDelay < maxShotDelay)
             return;
 
-        if (enemyName == "S") {
+        if (enemyName == "S")
+        {
             GameObject bullet = objectManager.MakeObj("BulletEnemyA");
             bullet.transform.position = transform.position;
 
@@ -215,7 +231,8 @@ public class Enemy : MonoBehaviour {
             Vector3 dirVec = player.transform.position - transform.position;
             rigid.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse);
         }
-        else if (enemyName == "L") {
+        else if (enemyName == "L")
+        {
             GameObject bulletR = objectManager.MakeObj("BulletEnemyB");
             bulletR.transform.position = transform.position + Vector3.right * 0.3f;
 
@@ -239,30 +256,36 @@ public class Enemy : MonoBehaviour {
         curShotDelay = 0;
     }
 
-    void Reload() {
+    void Reload()
+    {
         curShotDelay += Time.deltaTime;
     }
 
-    public void OnHit(int dmg) {
+    public void OnHit(int dmg)
+    {
         if (health <= 0)
             return;
 
         health -= dmg;
-        if (enemyName == "B") {
+        if (enemyName == "B")
+        {
             anim.SetTrigger("OnHit");
         }
-        else {
+        else
+        {
             spriteRenderer.sprite = sprites[1];
             Invoke("ReturnSprite", 0.1f);
         }
 
-        if (health <= 0) {
+        if (health <= 0)
+        {
             Player playerLogic = player.GetComponent<Player>();
             playerLogic.score += enemyScore;
 
             //#.Random Ratio Item Drop
             int ran = enemyName == "B" ? 0 : Random.Range(0, 10);
-            if (ran < 5) {
+            if (ran < 5)
+            {
                 Debug.Log("Not Item");
             }
             else if (ran < 8)   // Coin
@@ -284,7 +307,6 @@ public class Enemy : MonoBehaviour {
 
             }
 
-
             gameObject.SetActive(false);
             transform.rotation = Quaternion.identity;
             gameManager.CallExplosion(transform.position, enemyName);
@@ -296,16 +318,20 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    void ReturnSprite() {
+    void ReturnSprite()
+    {
         spriteRenderer.sprite = sprites[0];
     }
 
-    void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.tag == "BorderBullet" && enemyName != "B") {
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "BorderBullet" && enemyName != "B")
+        {
             gameObject.SetActive(false);
             transform.rotation = Quaternion.identity;
         }
-        else if (collision.gameObject.tag == "PlayerBullet") {
+        else if (collision.gameObject.tag == "PlayerBullet")
+        {
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
             OnHit(bullet.dmg);
 

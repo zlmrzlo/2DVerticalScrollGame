@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Follower : MonoBehaviour {
+public class Follower : MonoBehaviour
+{
     public float maxShotDelay;
     public float curShotDelay;
     public ObjectManager objectManager;
@@ -13,11 +14,13 @@ public class Follower : MonoBehaviour {
     public Queue<Vector3> parentPos;
 
 
-    void Awake() {
+    void Awake()
+    {
         parentPos = new Queue<Vector3>();
     }
 
-    void Update() {
+    void Update()
+    {
         Watch();
         Follow();
         Fire();
@@ -25,7 +28,8 @@ public class Follower : MonoBehaviour {
 
     }
 
-    void Watch() {
+    void Watch()
+    {
         // Queue = FIFO (First Input First Out)
         //#.Input Pos
         if (!parentPos.Contains(parent.position))
@@ -40,10 +44,12 @@ public class Follower : MonoBehaviour {
     }
 
 
-    void Follow() {
+    void Follow()
+    {
         transform.position = followPos;
     }
-    void Fire() {
+    void Fire()
+    {
         if (!Input.GetButton("Fire1"))
             return;
 
@@ -61,7 +67,8 @@ public class Follower : MonoBehaviour {
         curShotDelay = 0;       // 총알을 쏜 다음에는 딜레이 변수 0으로 초기화
     }
 
-    void Reload() {
+    void Reload()
+    {
         curShotDelay += Time.deltaTime;
     }
 }

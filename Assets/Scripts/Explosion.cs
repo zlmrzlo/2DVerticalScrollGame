@@ -2,25 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Explosion : MonoBehaviour {
+public class Explosion : MonoBehaviour
+{
     Animator anim;
 
-    void Awake() {
+    void Awake()
+    {
         anim = GetComponent<Animator>();
     }
 
-    void OnEnable() {
+    void OnEnable()
+    {
         Invoke("Disable", 2f);
     }
 
-    void Disable() {
+    void Disable()
+    {
         gameObject.SetActive(false);
     }
 
-    public void StartExplosion(string target) {
+    public void StartExplosion(string target)
+    {
         anim.SetTrigger("OnExplosion");
 
-        switch (target) {
+        switch (target)
+        {
             case "S":
                 transform.localScale = Vector3.one * 0.7f;
                 break;
